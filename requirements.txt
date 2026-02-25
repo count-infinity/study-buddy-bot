@@ -1,0 +1,6 @@
+nltk>=3.8
+spacy>=3.7
+sentence-transformers>=2.2
+transformers>=4.30
+chromadb>=0.4
+gradio>=4.0

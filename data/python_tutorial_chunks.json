@@ -1,0 +1,410 @@
+[
+  {
+    "chunk_id": "variables_1",
+    "topic": "variables",
+    "section": "basics",
+    "content": "A variable in Python is a name that refers to a value stored in memory. Unlike many other programming languages, Python does not require you to declare a variable's type before using it. You create a variable simply by assigning a value to a name using the equals sign (=). For example, writing x = 10 creates a variable named x that holds the integer value 10. The Python interpreter determines the type automatically based on the assigned value."
+  },
+  {
+    "chunk_id": "variables_2",
+    "topic": "variables",
+    "section": "naming_rules",
+    "content": "Python variable names must follow specific rules. A variable name must start with a letter (a-z, A-Z) or an underscore (_). The remaining characters can be letters, digits (0-9), or underscores. Variable names are case-sensitive, so 'myVar', 'myvar', and 'MYVAR' are three different variables. Reserved keywords such as if, else, for, while, class, and def cannot be used as variable names."
+  },
+  {
+    "chunk_id": "variables_3",
+    "topic": "variables",
+    "section": "naming_conventions",
+    "content": "Python follows the snake_case naming convention for variables and functions, where words are separated by underscores and all letters are lowercase. For example, use student_name rather than studentName or StudentName. Constants are conventionally written in ALL_CAPS with underscores, such as MAX_SIZE or PI. Class names use PascalCase. Following these conventions, outlined in PEP 8, makes your code more readable and consistent with the broader Python community."
+  },
+  {
+    "chunk_id": "variables_4",
+    "topic": "variables",
+    "section": "assignment",
+    "content": "Assignment in Python uses the = operator. The expression on the right side is evaluated first, and the result is then bound to the variable name on the left. For example, result = 3 + 7 evaluates 3 + 7 to get 10, then binds the name result to that value. Python variables are references to objects in memory, not containers that hold values directly. This distinction becomes important when working with mutable objects like lists."
+  },
+  {
+    "chunk_id": "variables_5",
+    "topic": "variables",
+    "section": "reassignment",
+    "content": "Variables in Python can be reassigned to new values at any time, even values of a different type. For example, x = 5 followed by x = 'hello' is perfectly valid. After reassignment, the variable refers to the new object, and if no other variable references the old object, Python's garbage collector will eventually reclaim that memory. This dynamic typing offers flexibility but requires programmers to be mindful of what type a variable currently holds."
+  },
+  {
+    "chunk_id": "variables_6",
+    "topic": "variables",
+    "section": "multiple_assignment",
+    "content": "Python supports assigning values to multiple variables in a single statement. You can assign the same value to several variables: a = b = c = 0 sets all three to zero. You can also assign different values simultaneously: x, y, z = 1, 2, 3 assigns 1 to x, 2 to y, and 3 to z. The number of variables on the left must match the number of values on the right, or Python will raise a ValueError."
+  },
+  {
+    "chunk_id": "variables_7",
+    "topic": "variables",
+    "section": "type_inference",
+    "content": "Python uses dynamic typing, meaning the interpreter infers the type of a variable from the value assigned to it. You do not need to specify types explicitly. Writing age = 25 makes age an int, while price = 19.99 makes price a float. You can check a variable's type at any time using the built-in type() function: type(age) returns <class 'int'>. This dynamic type system makes Python code concise but places the responsibility on the programmer to track types."
+  },
+  {
+    "chunk_id": "variables_8",
+    "topic": "variables",
+    "section": "global_vs_local_scope",
+    "content": "Variables defined inside a function have local scope and are only accessible within that function. Variables defined outside all functions have global scope and can be read from anywhere in the module. To modify a global variable inside a function, you must use the global keyword: global counter. Without it, assigning to a variable inside a function creates a new local variable that shadows the global one. It is generally best practice to minimize the use of global variables."
+  },
+  {
+    "chunk_id": "variables_9",
+    "topic": "variables",
+    "section": "constants_convention",
+    "content": "Python does not have a built-in constant type that prevents reassignment. Instead, the convention is to use ALL_UPPERCASE names with underscores to indicate that a variable should be treated as a constant. For example, MAX_RETRIES = 3 or DATABASE_URL = 'localhost:5432'. While nothing in the language prevents you from changing these values, other developers will understand that they are not meant to be modified. Some linters can flag reassignment of such variables as warnings."
+  },
+  {
+    "chunk_id": "variables_10",
+    "topic": "variables",
+    "section": "del_keyword",
+    "content": "The del statement removes a variable's binding to its value. After executing del x, attempting to use x will raise a NameError. This does not necessarily delete the underlying object from memory; it only removes the reference. If other variables still reference the same object, it remains in memory. The del statement can also remove items from lists (del my_list[2]) and keys from dictionaries (del my_dict['key']). It is useful for freeing references to large objects."
+  },
+  {
+    "chunk_id": "variables_11",
+    "topic": "variables",
+    "section": "variable_swapping",
+    "content": "Python provides an elegant syntax for swapping the values of two variables without needing a temporary variable. The statement a, b = b, a simultaneously swaps the values of a and b. This works because Python evaluates the entire right-hand side first, creating a tuple (b, a), and then unpacks it into the left-hand side variables. This technique extends to more than two variables as well: a, b, c = c, a, b performs a cyclic rotation of values."
+  },
+  {
+    "chunk_id": "variables_12",
+    "topic": "variables",
+    "section": "augmented_assignment",
+    "content": "Augmented assignment operators combine an arithmetic operation with assignment. Instead of writing x = x + 5, you can write x += 5. Python supports augmented assignment for all arithmetic operators: -= for subtraction, *= for multiplication, /= for division, //= for floor division, %= for modulus, and **= for exponentiation. These operators are more concise and can be slightly more efficient, as the variable name is evaluated only once."
+  },
+  {
+    "chunk_id": "variables_13",
+    "topic": "variables",
+    "section": "unpacking",
+    "content": "Variable unpacking allows you to assign elements from an iterable to individual variables. Given coords = (4, 5), you can write x, y = coords to assign 4 to x and 5 to y. Extended unpacking with the * operator captures remaining elements: first, *rest = [1, 2, 3, 4] assigns 1 to first and [2, 3, 4] to rest. You can also use _ as a throwaway variable for values you do not need: name, _, age = ('Alice', 'F', 30)."
+  },
+  {
+    "chunk_id": "data_types_1",
+    "topic": "data_types",
+    "section": "integers",
+    "content": "The int type in Python represents whole numbers with no fractional part, such as -3, 0, or 42. Python integers have arbitrary precision, meaning they can be as large as your system's memory allows, with no overflow. You can write integer literals in different bases: 0b1010 for binary (10), 0o17 for octal (15), and 0xFF for hexadecimal (255). Underscores can be used for readability in large numbers: population = 7_900_000_000."
+  },
+  {
+    "chunk_id": "data_types_2",
+    "topic": "data_types",
+    "section": "floats",
+    "content": "The float type represents real numbers with decimal points, such as 3.14 or -0.001. Floats in Python use IEEE 754 double-precision (64-bit) representation, providing about 15-17 significant decimal digits of precision. Scientific notation is supported: 1.5e3 equals 1500.0 and 2.5e-4 equals 0.00025. Be aware of floating-point precision issues: 0.1 + 0.2 does not exactly equal 0.3. For exact decimal arithmetic, use the decimal module."
+  },
+  {
+    "chunk_id": "data_types_3",
+    "topic": "data_types",
+    "section": "strings",
+    "content": "The str type represents sequences of Unicode characters. Strings can be enclosed in single quotes ('hello'), double quotes (\"hello\"), or triple quotes for multi-line strings ('''hello''' or \"\"\"hello\"\"\"). Strings are immutable: once created, their contents cannot be changed. Common escape sequences include \\n for newline, \\t for tab, and \\\\ for a literal backslash. Raw strings prefixed with r, like r'\\n', treat backslashes as literal characters."
+  },
+  {
+    "chunk_id": "data_types_4",
+    "topic": "data_types",
+    "section": "booleans",
+    "content": "The bool type has exactly two values: True and False. Booleans are a subclass of int in Python, where True equals 1 and False equals 0. This means you can use booleans in arithmetic: True + True equals 2. Comparison operators like ==, !=, <, and > return boolean values. Boolean values are essential for controlling program flow through if statements and while loops. The bool() function converts other types to boolean values."
+  },
+  {
+    "chunk_id": "data_types_5",
+    "topic": "data_types",
+    "section": "none_type",
+    "content": "None is Python's null value, representing the absence of a value. It is the sole instance of the NoneType class. Functions that do not explicitly return a value return None by default. None is commonly used as a default parameter value and as a sentinel to indicate that a variable has not been assigned a meaningful value. Always check for None using 'is' or 'is not' rather than == or !=, because is checks identity: if result is None."
+  },
+  {
+    "chunk_id": "data_types_6",
+    "topic": "data_types",
+    "section": "type_function",
+    "content": "The built-in type() function returns the type of an object. Calling type(42) returns <class 'int'>, type(3.14) returns <class 'float'>, and type('hello') returns <class 'str'>. You can use type() in conditional checks: if type(x) == int, though isinstance() is usually preferred because it also accounts for inheritance. The type() function is invaluable for debugging when you need to verify what kind of data a variable holds."
+  },
+  {
+    "chunk_id": "data_types_7",
+    "topic": "data_types",
+    "section": "isinstance",
+    "content": "The isinstance() function checks whether an object is an instance of a specified class or a tuple of classes. For example, isinstance(42, int) returns True, and isinstance(3.14, (int, float)) returns True because 3.14 is a float, which is one of the types in the tuple. Unlike type(), isinstance() respects inheritance: isinstance(True, int) returns True because bool is a subclass of int. This makes isinstance() the preferred way to check types in most situations."
+  },
+  {
+    "chunk_id": "data_types_8",
+    "topic": "data_types",
+    "section": "type_conversion",
+    "content": "Type conversion, or casting, transforms a value from one type to another. Python provides built-in functions for this: int() converts to integer (int('42') gives 42, int(3.9) gives 3 by truncating), float() converts to float (float('3.14') gives 3.14), str() converts to string (str(100) gives '100'), and bool() converts to boolean. Invalid conversions raise a ValueError: int('hello') will fail. These functions create new objects rather than modifying existing ones."
+  },
+  {
+    "chunk_id": "data_types_9",
+    "topic": "data_types",
+    "section": "numeric_operations",
+    "content": "Python supports standard arithmetic operators for numeric types: + (addition), - (subtraction), * (multiplication), / (true division, always returns float), // (floor division, rounds down to nearest integer), % (modulus, returns remainder), and ** (exponentiation). The divmod() function returns both quotient and remainder: divmod(17, 5) returns (3, 2). The abs() function returns the absolute value, and round() rounds to a specified number of decimal places."
+  },
+  {
+    "chunk_id": "data_types_10",
+    "topic": "data_types",
+    "section": "string_methods",
+    "content": "Python strings provide a rich set of methods. Case methods include upper(), lower(), title(), and capitalize(). Search methods include find(), index(), count(), startswith(), and endswith(). Modification methods include strip() (removes whitespace), replace(old, new), split(separator), and join(iterable). Checking methods include isdigit(), isalpha(), isalnum(), and isspace(). Since strings are immutable, all these methods return new strings rather than modifying the original."
+  },
+  {
+    "chunk_id": "data_types_11",
+    "topic": "data_types",
+    "section": "string_formatting",
+    "content": "F-strings, introduced in Python 3.6, are the recommended way to format strings. Prefix a string with f and embed expressions inside curly braces: name = 'Alice'; f'Hello, {name}!' produces 'Hello, Alice!'. F-strings support format specifications: f'{price:.2f}' formats to two decimal places, f'{num:05d}' pads with zeros, and f'{value:,}' adds thousands separators. You can include any valid Python expression inside the braces, including function calls and calculations."
+  },
+  {
+    "chunk_id": "data_types_12",
+    "topic": "data_types",
+    "section": "boolean_operations",
+    "content": "Python provides three boolean operators: and, or, and not. The and operator returns True only if both operands are True. The or operator returns True if at least one operand is True. The not operator inverts a boolean value. Python uses short-circuit evaluation: in 'x and y', if x is False, y is never evaluated; in 'x or y', if x is True, y is never evaluated. These operators actually return one of their operands, not necessarily True or False."
+  },
+  {
+    "chunk_id": "data_types_13",
+    "topic": "data_types",
+    "section": "truthy_falsy",
+    "content": "In Python, every object has a boolean value when used in a boolean context. Values considered falsy (evaluate to False) include: False, None, 0, 0.0, empty string '', empty list [], empty tuple (), empty dict {}, and empty set set(). All other values are truthy (evaluate to True). This allows concise conditional checks: 'if my_list:' is equivalent to 'if len(my_list) > 0:'. Custom classes can define __bool__() or __len__() to control their truthiness."
+  },
+  {
+    "chunk_id": "data_types_14",
+    "topic": "data_types",
+    "section": "complex_numbers",
+    "content": "Python has built-in support for complex numbers using the complex type. A complex number has a real part and an imaginary part, written with a j suffix: z = 3 + 4j. You can also use the complex() constructor: complex(3, 4). Access the components with z.real and z.imag. Standard arithmetic operations work on complex numbers. The abs() function returns the magnitude: abs(3 + 4j) returns 5.0. For advanced complex math, the cmath module provides functions like phase(), polar(), and sqrt()."
+  },
+  {
+    "chunk_id": "control_structures_1",
+    "topic": "control_structures",
+    "section": "if_elif_else",
+    "content": "The if statement is Python's primary conditional construct. It evaluates a condition and executes the indented block if the condition is True. An optional elif (else if) clause tests additional conditions, and an optional else clause runs when no previous condition was True. Example: if score >= 90: grade = 'A' elif score >= 80: grade = 'B' else: grade = 'C'. Python uses indentation rather than braces to define code blocks, making proper indentation essential."
+  },
+  {
+    "chunk_id": "control_structures_2",
+    "topic": "control_structures",
+    "section": "comparison_operators",
+    "content": "Python provides six comparison operators that return boolean values: == (equal to), != (not equal to), < (less than), > (greater than), <= (less than or equal to), and >= (greater than or equal to). Python supports chained comparisons: 1 < x < 10 checks if x is between 1 and 10 exclusive. The is operator tests identity (whether two variables refer to the same object), while == tests equality (whether two objects have the same value)."
+  },
+  {
+    "chunk_id": "control_structures_3",
+    "topic": "control_structures",
+    "section": "logical_operators",
+    "content": "The logical operators and, or, and not combine or modify boolean expressions. The and operator requires both conditions to be true: if age >= 18 and has_id: allows entry. The or operator requires at least one condition: if is_student or is_senior: gives a discount. The not operator negates a condition: if not is_locked: opens the door. Operator precedence is not, then and, then or. Parentheses can clarify complex expressions: if (a or b) and c."
+  },
+  {
+    "chunk_id": "control_structures_4",
+    "topic": "control_structures",
+    "section": "for_loops",
+    "content": "The for loop in Python iterates over any iterable object such as lists, strings, tuples, dictionaries, or ranges. The syntax is: for item in iterable: followed by an indented body. For example, for fruit in ['apple', 'banana', 'cherry']: print(fruit) prints each fruit on a separate line. When iterating over a dictionary, the loop variable receives keys by default. Use .items() to get both keys and values: for key, value in my_dict.items()."
+  },
+  {
+    "chunk_id": "control_structures_5",
+    "topic": "control_structures",
+    "section": "while_loops",
+    "content": "A while loop repeatedly executes its body as long as its condition remains True. The syntax is: while condition: followed by the loop body. For example, count = 0; while count < 5: print(count); count += 1 prints numbers 0 through 4. Be careful to ensure the condition will eventually become False, or you will create an infinite loop. An intentional infinite loop can be written as while True: and exited with a break statement when a specific condition is met."
+  },
+  {
+    "chunk_id": "control_structures_6",
+    "topic": "control_structures",
+    "section": "range_function",
+    "content": "The range() function generates a sequence of integers and is commonly used with for loops. It accepts one, two, or three arguments: range(stop) generates numbers from 0 to stop-1; range(start, stop) generates from start to stop-1; range(start, stop, step) generates with the given step. For example, range(5) yields 0, 1, 2, 3, 4 and range(2, 10, 3) yields 2, 5, 8. Range objects are memory-efficient because they compute values on demand rather than storing them all."
+  },
+  {
+    "chunk_id": "control_structures_7",
+    "topic": "control_structures",
+    "section": "break_continue",
+    "content": "The break statement immediately terminates the innermost enclosing loop and continues execution after the loop. The continue statement skips the rest of the current iteration and moves to the next iteration. For example, in a loop that processes items, you might use 'if item is None: continue' to skip null items, or 'if item == \"STOP\": break' to halt processing entirely. Both statements only affect the innermost loop when used inside nested loops."
+  },
+  {
+    "chunk_id": "control_structures_8",
+    "topic": "control_structures",
+    "section": "nested_loops",
+    "content": "Loops can be placed inside other loops to create nested loops. The inner loop completes all its iterations for each single iteration of the outer loop. For example, for i in range(3): for j in range(3): print(i, j) prints all nine combinations of i and j. Nested loops are useful for working with two-dimensional data like matrices or grids. Be mindful that deeply nested loops can lead to poor performance since the total iterations multiply."
+  },
+  {
+    "chunk_id": "control_structures_9",
+    "topic": "control_structures",
+    "section": "pass_statement",
+    "content": "The pass statement is a null operation that does nothing. It serves as a placeholder where Python syntax requires a statement but no action is needed. Common uses include creating empty function or class bodies: def placeholder(): pass, or as a placeholder in conditional branches you plan to implement later: if condition: pass. The pass statement is also useful in except blocks when you want to silently ignore an exception: except ValueError: pass."
+  },
+  {
+    "chunk_id": "control_structures_10",
+    "topic": "control_structures",
+    "section": "list_comprehensions",
+    "content": "List comprehensions provide a concise way to create lists based on existing iterables. The basic syntax is [expression for item in iterable]. For example, [x**2 for x in range(5)] creates [0, 1, 4, 9, 16]. You can add a condition to filter elements: [x for x in range(10) if x % 2 == 0] produces [0, 2, 4, 6, 8]. Nested comprehensions are also possible: [x*y for x in range(3) for y in range(3)] iterates over all combinations of x and y."
+  },
+  {
+    "chunk_id": "control_structures_11",
+    "topic": "control_structures",
+    "section": "ternary_expressions",
+    "content": "Python's ternary expression, also called a conditional expression, provides a compact way to choose between two values based on a condition. The syntax is: value_if_true if condition else value_if_false. For example, status = 'adult' if age >= 18 else 'minor' assigns 'adult' or 'minor' based on age. Ternary expressions can be used anywhere a value is expected, including inside function calls, list comprehensions, and return statements. Avoid nesting them deeply as it hurts readability."
+  },
+  {
+    "chunk_id": "control_structures_12",
+    "topic": "control_structures",
+    "section": "match_case",
+    "content": "Python 3.10 introduced structural pattern matching with the match/case statement. The syntax is: match subject: followed by case pattern: blocks. Simple example: match status: case 200: msg = 'OK' case 404: msg = 'Not Found' case _: msg = 'Unknown'. The underscore _ acts as a wildcard matching anything. Match/case supports complex patterns including sequence patterns like case [x, y], mapping patterns like case {'key': value}, and guard clauses like case x if x > 0."
+  },
+  {
+    "chunk_id": "control_structures_13",
+    "topic": "control_structures",
+    "section": "loop_else_clause",
+    "content": "Python loops support an optional else clause that executes when the loop completes normally, meaning it was not terminated by a break statement. For a for loop: for item in items: if item == target: break else: print('not found'). The else block runs only if the loop finishes without hitting break. This is particularly useful for search patterns where you need to know if a loop found what it was looking for. The else clause works with both for and while loops."
+  },
+  {
+    "chunk_id": "functions_1",
+    "topic": "functions",
+    "section": "def_syntax",
+    "content": "Functions in Python are defined using the def keyword, followed by the function name, parentheses with optional parameters, and a colon. The function body is indented. For example: def greet(name): print(f'Hello, {name}!'). Functions are called by using the function name followed by parentheses with arguments: greet('Alice'). Functions are first-class objects in Python, meaning they can be assigned to variables, passed as arguments, and returned from other functions."
+  },
+  {
+    "chunk_id": "functions_2",
+    "topic": "functions",
+    "section": "parameters_and_arguments",
+    "content": "Parameters are the variable names listed in a function definition, while arguments are the actual values passed when calling the function. Python supports positional arguments (matched by position), keyword arguments (matched by name: greet(name='Alice')), and a mix of both. Keyword arguments must come after positional arguments in a function call. You can enforce keyword-only parameters by placing them after a * separator: def func(a, b, *, keyword_only)."
+  },
+  {
+    "chunk_id": "functions_3",
+    "topic": "functions",
+    "section": "return_values",
+    "content": "The return statement sends a value back to the caller and exits the function. A function can return any type of object. If no return statement is reached, or if return is used without a value, the function returns None. Python functions can return multiple values as a tuple: def min_max(lst): return min(lst), max(lst). The caller can unpack the result: low, high = min_max([3, 1, 4, 1, 5]). A function can have multiple return statements in different branches."
+  },
+  {
+    "chunk_id": "functions_4",
+    "topic": "functions",
+    "section": "default_parameters",
+    "content": "Function parameters can have default values, making them optional when calling the function. Defaults are specified with = in the parameter list: def greet(name, greeting='Hello'). Parameters with defaults must come after those without. Important caveat: default values are evaluated once when the function is defined, not each call. Never use a mutable object like a list as a default; use None instead and create the list inside the function."
+  },
+  {
+    "chunk_id": "functions_5",
+    "topic": "functions",
+    "section": "args_kwargs",
+    "content": "The *args syntax in a function parameter collects extra positional arguments into a tuple: def func(*args) lets you call func(1, 2, 3) where args becomes (1, 2, 3). The **kwargs syntax collects extra keyword arguments into a dictionary: def func(**kwargs) lets you call func(a=1, b=2) where kwargs becomes {'a': 1, 'b': 2}. You can combine both: def func(required, *args, **kwargs). When calling, the * operator unpacks sequences and ** unpacks dictionaries into arguments."
+  },
+  {
+    "chunk_id": "functions_6",
+    "topic": "functions",
+    "section": "lambda_functions",
+    "content": "Lambda functions are small anonymous functions defined with the lambda keyword. The syntax is: lambda parameters: expression. For example, square = lambda x: x**2 creates a function that squares its input. Lambdas are limited to a single expression and cannot contain statements or multiple lines. They are commonly used as arguments to higher-order functions like sorted(), map(), and filter(): sorted(names, key=lambda name: name.lower()) sorts names case-insensitively."
+  },
+  {
+    "chunk_id": "functions_7",
+    "topic": "functions",
+    "section": "docstrings",
+    "content": "A docstring is a string literal placed as the first statement in a function, class, or module to document its purpose. It is enclosed in triple quotes: def area(radius): \"\"\"Calculate the area of a circle.\"\"\" The docstring is accessible via the __doc__ attribute: area.__doc__. The help() function also displays docstrings. Convention recommends a one-line summary, optionally followed by a blank line and detailed description of parameters and return values."
+  },
+  {
+    "chunk_id": "functions_8",
+    "topic": "functions",
+    "section": "scope",
+    "content": "Python uses the LEGB rule to resolve variable names: Local (inside the current function), Enclosing (enclosing functions), Global (module level), and Built-in (Python's built-in names). To modify a global variable inside a function, use the global keyword. To modify a variable from an enclosing scope in a nested function, use nonlocal. Without these declarations, assignment creates a new local variable instead of modifying the outer one."
+  },
+  {
+    "chunk_id": "functions_9",
+    "topic": "functions",
+    "section": "recursion",
+    "content": "Recursion occurs when a function calls itself. Every recursive function needs a base case that stops the recursion and a recursive case that moves toward it. A classic example is factorial: def factorial(n): if n <= 1: return 1; return n * factorial(n - 1). Python has a default recursion limit of 1000, changeable with sys.setrecursionlimit(). Recursion is elegant for tree traversal and divide-and-conquer algorithms but may be less efficient than iteration due to call overhead."
+  },
+  {
+    "chunk_id": "functions_10",
+    "topic": "functions",
+    "section": "decorators",
+    "content": "Decorators are functions that modify the behavior of other functions. A decorator takes a function as input, wraps it with additional functionality, and returns the modified function. The @ syntax applies a decorator: @my_decorator above a definition is equivalent to func = my_decorator(func). Common built-in decorators include @staticmethod, @classmethod, and @property. Custom decorators define a wrapper function that calls the original and adds extra behavior."
+  },
+  {
+    "chunk_id": "functions_11",
+    "topic": "functions",
+    "section": "generators",
+    "content": "Generator functions use the yield keyword instead of return to produce a sequence of values lazily, one at a time. When called, a generator function returns a generator object without executing the body. Each call to next() on the generator resumes execution until the next yield. Example: def countdown(n): while n > 0: yield n; n -= 1. Generators are memory-efficient because they produce values on demand. You can iterate over a generator with a for loop: for num in countdown(5): print(num)."
+  },
+  {
+    "chunk_id": "functions_12",
+    "topic": "functions",
+    "section": "type_hints",
+    "content": "Type hints, introduced in Python 3.5 and expanded since, allow you to annotate function parameters and return types. The syntax is: def greet(name: str) -> str: return f'Hello, {name}'. Type hints are optional and are not enforced at runtime; they serve as documentation and can be checked by static analysis tools like mypy. Common type hints include int, str, float, bool, list[int], dict[str, int], Optional[str] (for values that can be None), and Union[int, str] for multiple possible types."
+  },
+  {
+    "chunk_id": "functions_13",
+    "topic": "functions",
+    "section": "closures",
+    "content": "A closure is a nested function that remembers variables from its enclosing scope even after the outer function has finished executing. Example: def make_multiplier(factor): def multiply(x): return x * factor; return multiply. Calling double = make_multiplier(2) creates a closure where factor is remembered as 2, so double(5) returns 10. Closures are the mechanism underlying decorators and many functional programming patterns in Python."
+  },
+  {
+    "chunk_id": "lists_1",
+    "topic": "lists",
+    "section": "creating_lists",
+    "content": "Lists are ordered, mutable collections that can hold items of any type. Create a list using square brackets: numbers = [1, 2, 3, 4, 5] or mixed = [1, 'hello', 3.14, True]. The list() constructor converts other iterables to lists: list('abc') produces ['a', 'b', 'c'] and list(range(5)) produces [0, 1, 2, 3, 4]. An empty list is created with [] or list(). Lists can contain duplicate values and can even contain other lists, enabling nested data structures."
+  },
+  {
+    "chunk_id": "lists_2",
+    "topic": "lists",
+    "section": "indexing",
+    "content": "List elements are accessed by their index using square bracket notation. Indexing starts at 0, so my_list[0] returns the first element, my_list[1] returns the second, and so on. Attempting to access an index beyond the list's length raises an IndexError. You can modify elements by assigning to an index: my_list[2] = 'new_value'. The index can also be used with strings and tuples. Indexing works with any integer expression: my_list[len(my_list) - 1] gets the last element."
+  },
+  {
+    "chunk_id": "lists_3",
+    "topic": "lists",
+    "section": "negative_indexing",
+    "content": "Python supports negative indexing, which counts from the end of the list. The index -1 refers to the last element, -2 to the second-to-last, and so on. For example, if colors = ['red', 'green', 'blue'], then colors[-1] returns 'blue' and colors[-2] returns 'green'. Negative indexing is especially useful when you need the last few elements of a list without knowing its length. It also works with slicing: colors[-2:] returns the last two elements."
+  },
+  {
+    "chunk_id": "lists_4",
+    "topic": "lists",
+    "section": "slicing",
+    "content": "Slicing extracts a portion of a list using the syntax list[start:stop:step]. The start index is inclusive and the stop index is exclusive. For nums = [0, 1, 2, 3, 4, 5], nums[1:4] returns [1, 2, 3], nums[:3] returns [0, 1, 2], and nums[3:] returns [3, 4, 5]. The step controls the increment: nums[::2] returns [0, 2, 4] (every other element). A common idiom to reverse a list is nums[::-1]. Slicing always returns a new list, never raises an IndexError, and safely handles out-of-range indices."
+  },
+  {
+    "chunk_id": "lists_5",
+    "topic": "lists",
+    "section": "append_extend_insert",
+    "content": "The append() method adds a single element to the end of a list: fruits.append('mango') adds 'mango' as the last item. The extend() method adds all elements from an iterable to the end: fruits.extend(['kiwi', 'grape']) adds both items individually. The insert() method adds an element at a specific position: fruits.insert(0, 'pear') places 'pear' at the beginning. Note that append() with a list argument adds the entire list as a single nested element, while extend() unpacks it."
+  },
+  {
+    "chunk_id": "lists_6",
+    "topic": "lists",
+    "section": "remove_pop_del",
+    "content": "Python provides several ways to remove list elements. The remove() method deletes the first occurrence of a value: my_list.remove('apple'); it raises ValueError if not found. The pop() method removes and returns an element by index: my_list.pop(2) removes the third element; with no argument it removes the last. The del statement removes by index or slice: del my_list[0] or del my_list[1:3]. The clear() method removes all elements from the list."
+  },
+  {
+    "chunk_id": "lists_7",
+    "topic": "lists",
+    "section": "len_function",
+    "content": "The built-in len() function returns the number of elements in a list. For example, len([10, 20, 30]) returns 3 and len([]) returns 0. This function works in constant time O(1) because Python internally tracks the list size. The len() function is commonly used in loops (for i in range(len(my_list))), conditional checks (if len(my_list) > 0), and index calculations. It works on all sequence types including strings, tuples, and dictionaries."
+  },
+  {
+    "chunk_id": "lists_8",
+    "topic": "lists",
+    "section": "sorting",
+    "content": "Python offers two approaches to sorting. The list.sort() method sorts in place and returns None: numbers.sort() modifies numbers directly. The sorted() function returns a new sorted list, leaving the original unchanged: sorted_nums = sorted(numbers). Both accept reverse=True for descending order and a key parameter for custom sorting: sorted(words, key=len) sorts by length. The sort is stable, meaning equal elements maintain their relative order. Both use Timsort."
+  },
+  {
+    "chunk_id": "lists_9",
+    "topic": "lists",
+    "section": "list_comprehensions",
+    "content": "List comprehensions create new lists by applying an expression to each item in an iterable, optionally filtering with a condition. Basic form: squares = [x**2 for x in range(10)]. With a filter: evens = [x for x in range(20) if x % 2 == 0]. With transformation and filter: upper_long = [s.upper() for s in words if len(s) > 3]. List comprehensions are generally faster and more Pythonic than equivalent for loops with append, and can replace map() and filter()."
+  },
+  {
+    "chunk_id": "lists_10",
+    "topic": "lists",
+    "section": "nested_lists",
+    "content": "Lists can contain other lists as elements, creating nested or multi-dimensional structures. A 2D matrix can be represented as matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]. Access nested elements with chained indexing: matrix[1][2] returns 6 (row 1, column 2). Create a matrix with a nested comprehension: [[0 for _ in range(cols)] for _ in range(rows)]. Be cautious: [[0]*3]*3 creates three references to the same inner list, so modifying one row affects all rows."
+  },
+  {
+    "chunk_id": "lists_11",
+    "topic": "lists",
+    "section": "copying_lists",
+    "content": "Assigning a list to a new variable does not create a copy; both variables reference the same object. A shallow copy duplicates the structure but not nested objects: use my_list.copy(), my_list[:], or list(my_list). Changes to top-level elements in the copy do not affect the original, but modifications to nested mutable objects will affect both. For a full independent copy of nested structures, use copy.deepcopy() from the copy module."
+  },
+  {
+    "chunk_id": "lists_12",
+    "topic": "lists",
+    "section": "enumerate",
+    "content": "The enumerate() function adds a counter to an iterable, returning pairs of (index, element). Instead of manually tracking an index, write: for i, fruit in enumerate(fruits): print(f'{i}: {fruit}'). By default, counting starts at 0, but you can specify a different start: for i, item in enumerate(menu, start=1) begins counting at 1. Enumerate returns an enumerate object that yields tuples, making it the Pythonic way to access both indices and values in a loop."
+  },
+  {
+    "chunk_id": "lists_13",
+    "topic": "lists",
+    "section": "zip_function",
+    "content": "The zip() function combines elements from two or more iterables into tuples, pairing items by position. For names = ['Alice', 'Bob'] and scores = [95, 87], list(zip(names, scores)) produces [('Alice', 95), ('Bob', 87)]. Zip stops at the shortest iterable. Iterate over parallel lists: for name, score in zip(names, scores). To unzip, use the * operator: names, scores = zip(*pairs). Use itertools.zip_longest() to pad shorter iterables with a fill value."
+  },
+  {
+    "chunk_id": "lists_14",
+    "topic": "lists",
+    "section": "in_operator",
+    "content": "The in operator tests whether a value exists in a list, returning True or False. For example, 'apple' in ['apple', 'banana', 'cherry'] returns True. The not in operator checks for absence: 'grape' not in fruits returns True if 'grape' is not in the list. For lists, the in operator performs a linear search with O(n) time complexity, checking each element sequentially. For frequent membership tests on large collections, consider using a set instead, which provides O(1) average lookup time."
+  },
+  {
+    "chunk_id": "lists_15",
+    "topic": "lists",
+    "section": "list_unpacking",
+    "content": "List unpacking assigns list elements to individual variables in one statement. Given coordinates = [4, 5, 6], writing x, y, z = coordinates assigns each value to the corresponding variable. The number of variables must match the list length, or a ValueError is raised. Extended unpacking with * captures remaining elements: first, *middle, last = [1, 2, 3, 4, 5] assigns 1 to first, [2, 3, 4] to middle, and 5 to last. Unpacking also works in for loops."
+  }
+]
