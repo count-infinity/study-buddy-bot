@@ -1,5 +1,7 @@
 """spaCy-based intent classification for the Study Buddy Bot."""
 
+import re
+
 import spacy
 from spacy.matcher import PhraseMatcher
 
@@ -19,8 +21,9 @@ _INTENT_PHRASES = {
     ],
     "explain": [
         "explain", "what is", "what are", "how does", "how do",
-        "tell me about", "teach me", "describe", "can you explain",
-        "what does", "help me understand", "i want to learn",
+        "how is", "how are", "tell me about", "teach me", "describe",
+        "can you explain", "what does", "help me understand",
+        "i want to learn", "can you tell me",
     ],
     "progress": [
         "how am i doing", "my score", "my progress", "show stats",
@@ -48,7 +51,7 @@ _TOPIC_SYNONYMS = {
     "control_structures": [
         "if", "else", "elif", "loop", "loops", "for loop", "while loop",
         "for", "while", "conditional", "conditionals", "control structure",
-        "control flow", "iteration", "branching",
+        "control structures", "control flow", "iteration", "branching",
     ],
     "functions": [
         "function", "functions", "def", "return", "parameter", "parameters",
@@ -58,6 +61,25 @@ _TOPIC_SYNONYMS = {
         "list", "lists", "append", "index", "indexing", "slicing",
         "slice", "list comprehension",
     ],
+}
+
+
+# Broad Python keywords — allows free-form questions like "tell me about dicts"
+# to pass through to RAG search even when they don't match one of the 5 quiz topics.
+# Only includes unambiguous programming terms (no common English words like "is", "in").
+_PYTHON_KEYWORDS = {
+    "python", "dict", "dicts", "dictionary", "dictionaries", "tuple", "tuples",
+    "class", "classes", "object", "objects", "module", "modules", "import",
+    "package", "exception", "exceptions", "isinstance", "comprehension",
+    "generator", "iterator", "iterable", "scope", "namespace", "operator",
+    "operators", "syntax", "indentation", "pip", "virtualenv", "venv",
+    "inheritance", "polymorphism", "encapsulation", "abstraction", "oop",
+    "constructor", "init", "self", "super", "staticmethod", "classmethod",
+    "args", "kwargs", "unpacking", "mutable", "immutable", "hashable",
+    "decorator", "decorators", "lambda", "recursion", "recursive", "nonlocal",
+    "docstring", "docstrings", "pep8", "f-string", "deepcopy",
+    "generators", "iterators", "iterables", "constructors", "packages",
+    "namespaces", "modules", "lambdas",
 }
 
 
@@ -107,17 +129,24 @@ class IntentClassifier:
                 return {"intent": "answer", "confidence": 0.7, "topic_mentioned": topic}
             return {"intent": "off_topic", "confidence": 0.3, "topic_mentioned": topic}
 
-        # "explain" intent requires a Python topic to be mentioned, otherwise it's off_topic
-        # This prevents "What is the weather?" from triggering explain
+        # "explain" intent requires a Python-related mention, otherwise it's off_topic.
+        # This prevents "What is the weather?" from triggering explain, but allows
+        # free-form Python questions like "tell me about dicts" or "how do classes work".
         if best_intent == "explain" and topic is None:
-            return {"intent": "off_topic", "confidence": 0.4, "topic_mentioned": None}
+            if not self._is_python_related(text_lower):
+                return {"intent": "off_topic", "confidence": 0.4, "topic_mentioned": None}
 
         confidence = min(0.5 + best_score, 1.0)
         return {"intent": best_intent, "confidence": confidence, "topic_mentioned": topic}
 
+    def _is_python_related(self, text: str) -> bool:
+        """Check if text mentions any Python concept (broad check)."""
+        text_clean = re.sub(r"[^\w\s]", "", text.lower())
+        words = set(text_clean.split())
+        return bool(words & _PYTHON_KEYWORDS)
+
     def extract_topic(self, text: str) -> str | None:
-        """Check if the user mentioned one of the 5 topics."""
-        import re
+        """Check if the user mentioned one of the 5 quiz topics."""
         # Strip punctuation for matching, keep spaces
         text_clean = re.sub(r"[^\w\s]", "", text.lower())
         for topic, synonyms in _TOPIC_SYNONYMS.items():
