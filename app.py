@@ -233,6 +233,7 @@ def create_interface() -> gr.Blocks:
         chatbot = gr.Chatbot(
             value=[{"role": "assistant", "content": bot.generator.generate_greeting()}],
             height=500,
+            type="messages",
         )
         msg = gr.Textbox(
             placeholder="Ask me about Python, or say 'Quiz me'...",
