@@ -17,8 +17,7 @@ class KnowledgeBase:
         self.embedder = SentenceTransformer(model_name)
         self.client = chromadb.PersistentClient(path=persist_dir)
 
-        # Get or create the three collections
-        self.exercises = self.client.get_or_create_collection("exercises")
+        # Get or create collections
         self.tutorial_chunks = self.client.get_or_create_collection("tutorial_chunks")
         self.quiz_collection = self.client.get_or_create_collection("quiz_questions")
 

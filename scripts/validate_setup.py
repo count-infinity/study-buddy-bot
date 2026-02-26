@@ -52,9 +52,9 @@ def test_hf_model():
 
 
 def test_data_files():
-    from config import FILTERED_DATASET_PATH, QUIZ_QUESTIONS_PATH, TUTORIAL_CHUNKS_PATH
+    from config import QUIZ_QUESTIONS_PATH, TUTORIAL_CHUNKS_PATH
     import json
-    for path in [FILTERED_DATASET_PATH, QUIZ_QUESTIONS_PATH, TUTORIAL_CHUNKS_PATH]:
+    for path in [QUIZ_QUESTIONS_PATH, TUTORIAL_CHUNKS_PATH]:
         assert path.exists(), f"{path} not found"
         with open(path, "r", encoding="utf-8") as f:
             data = json.load(f)
@@ -66,7 +66,7 @@ def test_vector_store():
     assert CHROMA_DB_PATH.exists(), f"{CHROMA_DB_PATH} not found"
     import chromadb
     client = chromadb.PersistentClient(path=str(CHROMA_DB_PATH))
-    for name in ["exercises", "tutorial_chunks", "quiz_questions"]:
+    for name in ["tutorial_chunks", "quiz_questions"]:
         col = client.get_collection(name)
         assert col.count() > 0, f"Collection '{name}' is empty"
 

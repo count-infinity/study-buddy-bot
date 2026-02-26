@@ -180,16 +180,9 @@ class StudyBuddyBot:
 
     def _handle_explain(self, query: str, topic: str = None) -> str:
         """Retrieve context and generate an explanation."""
-        # Search both tutorial chunks and exercises for context
-        context_chunks = []
-
         where = {"topic": topic} if topic else None
-        tutorial_results = self.kb.query(query, "tutorial_chunks", n_results=TOP_K_RETRIEVAL, where_filter=where)
-        context_chunks.extend([r["content"] for r in tutorial_results])
-
-        exercise_results = self.kb.query(query, "exercises", n_results=2, where_filter=where)
-        context_chunks.extend([r["content"] for r in exercise_results])
-
+        results = self.kb.query(query, "tutorial_chunks", n_results=TOP_K_RETRIEVAL, where_filter=where)
+        context_chunks = [r["content"] for r in results]
         return self.generator.generate_explanation(topic or "general", query, context_chunks)
 
     def _handle_progress(self) -> str:

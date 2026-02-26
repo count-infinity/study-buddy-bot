@@ -83,7 +83,6 @@ study-buddy-bot/
 ├── config.py               # All constants and paths
 ├── requirements.txt
 ├── data/
-│   ├── filtered_exercises.json      # 2,182 Python exercises (filtered from 27k dataset)
 │   ├── quiz_questions.json          # 75 curated quiz questions
 │   └── python_tutorial_chunks.json  # 68 educational reference chunks
 ├── modules/
@@ -95,6 +94,5 @@ study-buddy-bot/
 │   └── adaptive_controller.py  # Difficulty adjustment logic
 └── scripts/
     ├── build_vector_store.py   # One-time: embed data into ChromaDB
-    ├── filter_dataset.py       # One-time: filter raw 27k dataset (already done)
     └── validate_setup.py       # Smoke test for all components
 ```
