@@ -1,3 +1,14 @@
+---
+title: Study Buddy Bot
+emoji: "\U0001F40D"
+colorFrom: blue
+colorTo: green
+sdk: gradio
+sdk_version: "5.0"
+app_file: app.py
+pinned: false
+---
+
 # Study Buddy Bot
 
 A RAG-based Python tutoring chatbot built for CSC525 (Principles of Machine Learning). The bot quizzes students on five Python topics, adapts difficulty based on performance, and provides explanations grounded in retrieved educational content.

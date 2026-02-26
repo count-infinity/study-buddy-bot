@@ -1,6 +1,31 @@
 """Study Buddy Bot - Main entry point with Gradio UI."""
 
+import subprocess
+import sys
+from pathlib import Path
+
 import gradio as gr
+
+from config import TOP_K_RETRIEVAL, CHROMA_DB_PATH, SPACY_MODEL
+
+
+def _ensure_setup():
+    """Auto-setup for HuggingFace Spaces: download spaCy model + build vector store."""
+    # Download spaCy model if not installed
+    try:
+        import spacy
+        spacy.load(SPACY_MODEL)
+    except OSError:
+        print(f"Downloading spaCy model '{SPACY_MODEL}'...")
+        subprocess.check_call([sys.executable, "-m", "spacy", "download", SPACY_MODEL])
+
+    # Build vector store if it doesn't exist
+    if not CHROMA_DB_PATH.exists() or not any(CHROMA_DB_PATH.iterdir()):
+        print("Building vector store (first run)...")
+        subprocess.check_call([sys.executable, str(Path(__file__).parent / "scripts" / "build_vector_store.py")])
+
+
+_ensure_setup()
 
 from modules.preprocessor import initialize as init_nltk
 from modules.intent_classifier import IntentClassifier
@@ -8,7 +33,6 @@ from modules.knowledge_retrieval import KnowledgeBase
 from modules.response_generator import ResponseGenerator
 from modules.student_model import StudentModel
 from modules.adaptive_controller import AdaptiveController
-from config import TOP_K_RETRIEVAL
 
 
 class StudyBuddyBot:
@@ -230,6 +254,8 @@ def create_interface() -> gr.Blocks:
     return demo
 
 
+# Expose demo at module level for HuggingFace Spaces
+demo = create_interface()
+
 if __name__ == "__main__":
-    demo = create_interface()
     demo.launch()
